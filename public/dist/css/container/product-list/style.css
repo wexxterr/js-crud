@@ -1,0 +1,40 @@
+main {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.section__title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #0059a6;
+  padding: 12px;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: row;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  padding-left: 32px;
+  padding-right: 32px;
+  gap: 16px;
+}
+
+.product__card {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  height: 100%;
+}
+
+.lower-section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+/*# sourceMappingURL=style.css.map */
