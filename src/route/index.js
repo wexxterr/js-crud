@@ -55,13 +55,15 @@ class User {
 
 class Product {
 
-  constructor(name, price, description) {
-    this.name = name
+  constructor(prodName, price, description) {
+    this.prodName = prodName
     this.price = price
     this.description = description
 
     this.id = Math.floor(10000 + Math.random() * 90000);
     this.createDate = new Date().toISOString();
+
+    console.log(Product)
   }
 
   static #list = []
@@ -164,9 +166,10 @@ router.post('/user-update', function (req, res) {
     result = true
   }
 
-  res.render('success-info', {
-    style: 'success-info',
-    info: result ? 'Email пошта оновлена' : 'Виникла помилка'
+  res.render('alert', {
+    style: 'alert',
+    info: result ? 'Email пошта оновлена' : 'Виникла помилка',
+    link: 'user-update'
   })
 })
 
@@ -192,17 +195,15 @@ router.get('/product-create', function (req, res) {
 
 router.post('/product-create', function (req, res) {
 
-  const { name, price, description } = req.body
+  const { prodName, price, description } = req.body
 
-  const product = new Product(name, price, description)
+  const product = new Product(prodName, price, description)
 
   Product.add(product)
-
-  console.log(User.getList())
-
-  res.render('product-info', {
-    style: 'product-info',
-    info: 'Товар створений'
+  res.render('alert', {
+    style: 'alert',
+    info: 'Товар успішно додано',
+    link: '/product-create'
   })
 })
 
@@ -212,8 +213,31 @@ router.get('/product-list', function (req, res) {
   // res.render генерує нам HTML сторінку
 
   const list = Product.getList()
+
+  console.log(Product.getList())
   res.render('product-list', {
     style: 'product-list',
+
+    data: {
+      products: {
+        list,
+        isEmpty: list.length === 0
+      }
+    }
+  })
+})
+
+// ================================================================
+
+router.get('/product-edit', function (req, res) {
+  // res.render генерує нам HTML сторінку
+
+  const list = Product.getList()
+
+  console.log(Product.getList())
+  res.render('product-edit', {
+    style: 'product-edit',
+
 
     data: {
       products: {

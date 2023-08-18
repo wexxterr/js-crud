@@ -1,0 +1,16 @@
+.alert {
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  gap: 32px;
+  margin: 36px;
+}
+
+.alert__box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px #ddd;
+  width: 40%;
+}
+
+/*# sourceMappingURL=style.css.map */

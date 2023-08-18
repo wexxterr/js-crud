@@ -1,0 +1,16 @@
+@use '../../lib/service.scss' as s;
+
+.alert {
+    display: flex;
+    flex-direction: column;
+    padding: s.space(4);
+    gap: s.space(8);
+    margin: 36px;
+}
+
+.alert__box{
+    border: 1px solid s.color('light');
+    border-radius: 8px;
+    box-shadow: 5px 5px 10px s.color('light');
+    width: 40%;
+}
