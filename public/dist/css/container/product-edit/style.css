@@ -32,11 +32,8 @@
   border: 1px solid #ddd;
   padding: 8px;
   border-radius: 8px;
-  background-color: #0059a6;
   color: white;
-}
-.form__button:hover {
-  background-color: #006dcc;
+  width: 50%;
 }
 .form__info {
   font-size: 12px;
@@ -50,21 +47,15 @@ main {
 }
 
 .section__title {
+  padding: 12px;
+  display: flex;
+}
+
+.title {
   font-size: 32px;
   font-weight: 600;
   color: #0059a6;
-  padding: 12px;
-}
-
-.user-list {
-  display: flex;
-  flex-direction: column-reverse;
-}
-.user-list li {
-  padding-right: 15px;
-  padding-left: 15px;
-  padding-top: 5px;
-  padding-bottom: 5px;
+  justify-content: center;
 }
 
 .upper-div {
@@ -92,6 +83,42 @@ main {
 
 .redirect__link:hover {
   background-color: #3eb96f;
+}
+
+.color-blue {
+  background-color: #0059a6;
+}
+
+.color-blue:hover {
+  background-color: #006dcc;
+}
+
+.color-red {
+  background-color: #a90b0b;
+}
+
+.color-red:hover {
+  background-color: #dc1313;
+}
+
+.section__box {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 5px 5px 10px #ddd;
+  width: 90%;
+  margin: 56px;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+.button__box {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  width: 100%;
 }
 
 /*# sourceMappingURL=style.css.map */

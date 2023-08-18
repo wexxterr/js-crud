@@ -2,41 +2,14 @@
   <section>
     <div class="list">
       <h1 class="section__title">Список товарів</h1>
-      {{!-- <div class="product-list">
-        {{#with data.products}}
-        {{#if isEmpty}}
-        <mark>Список товарів пустий</mark>
-        {{else}}
-        <div>
-          {{#each list}}
-          <div>{{name}} |ID: {{id}} | {{price}} грн <br> {{description}} <br> <a
-              href="/product-delete?id={{id}}">Видалити</a>
-          </div>
-          <div>{{name}} Назва товару |ID: {{id}}id | Ціна грн <br> Jпис <br> <a
-              href="/product-delete?id={{id}}">Видалити</a>
-          </div>
-          <div>{{name}} Назва товару |ID: {{id}}id | Ціна грн <br> Jпис <br> <a
-              href="/product-delete?id={{id}}">Видалити</a>
-          </div>
-          <div>{{name}} Назва товару |ID: {{id}}id | Ціна грн <br> Jпис <br> <a
-              href="/product-delete?id={{id}}">Видалити</a>
-          </div>
-          {{/each}}
-        </div>
+      {{#with data.products}}
+      {{#if isEmpty}}
+      <mark>Список товарів пустий</mark>
+      {{else}}
+      <div class="product__list">
+        {{> product-card}}
         {{/if}}
-        {{/with}}
-      </div> --}}
-      <div class="product-list">
-        <div class="product__card">
-          <h3 class="card__name">Назва товару</h3>
-          <div class="card__id" ID: 34567874></div>
-          <p class="card__description">Опис товару характеризує основні риси конкретного доданого товару</p>
-          <div class="lower-section">
-            <div class="card__price">1500 ₴</div>
-            <a href="/product-delete?id={{id}}">Редагувати</a>
-          </div>
-        </div>
       </div>
-    </div>
+      {{/with}}
   </section>
 </main>

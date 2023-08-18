@@ -1,0 +1,46 @@
+<main>
+  <section>
+    <div class="section__title">
+      <h1 class="title">Редагування товару</h1>
+    </div>
+    <div class="section__box">
+      <div class="form">
+        <h2 class="form__title">Інформація про товар</h1>
+          <form method="POST" action="/product-create">
+            <div class="form__content">
+              {{#with data}}
+              <div class="upper-div">
+                <div class="form__field small-field">
+                  <label for="prodName" class="form__label">Назва товару:</label>
+                  <input value="{{prodName}}" class="form__input" name="prodName" type="prodName">
+                </div>
+                <div class="form__field small-field">
+                  <label for="price" class="form__label">Ціна:</label>
+                  <input value="{{price}}" class="form__input" name="price" type="price">
+                </div>
+                <div class="form__field small-field">
+                  <label for="id" class="form__label">ID:</label>
+                  <input value="{{id}}" class="form__input" name="id" type="id">
+                </div>
+              </div>
+              <div class="form__field">
+                <label for="description" class="form__label">Короткий опис товару:</label>
+                <input value="{{description}}" class="form__input bigger-input" name="description" type="description">
+                <p class="form__info">Відображується у картці товару</p>
+              </div>
+              {{/with}}
+              <div class="button__box">
+                <button class="form__button color-blue">Зберегти оновлення</button>
+                <button class="form__button color-red">Видалити товар</button>
+              </div>
+            </div>
+          </form>
+      </div>
+    </div>
+  </section>
+  <section>
+    <div class="redirect">
+      <a class="redirect__link" href="/product-list">Перейти до списку товарів</a>
+    </div>
+  </section>
+</main>
