@@ -41,6 +41,8 @@
         border-radius: 8px;
         color: white;
         width: 50%;
+        display: flex;
+        justify-content: center;
     }
 
     &__info {
@@ -104,6 +106,8 @@ main {
 
 .color-red {
     background-color: #a90b0b;
+    text-decoration: none;
+    justify-content: center;
 }
 
 .color-red:hover {

@@ -34,6 +34,8 @@
   border-radius: 8px;
   color: white;
   width: 50%;
+  display: flex;
+  justify-content: center;
 }
 .form__info {
   font-size: 12px;
@@ -95,6 +97,8 @@ main {
 
 .color-red {
   background-color: #a90b0b;
+  text-decoration: none;
+  justify-content: center;
 }
 
 .color-red:hover {
