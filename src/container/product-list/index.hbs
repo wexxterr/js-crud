@@ -4,12 +4,12 @@
       <h1 class="section__title">Список товарів</h1>
       {{#with data.products}}
       {{#if isEmpty}}
-      <mark>Список товарів пустий</mark>
+      <mark>Пустий</mark>
       {{else}}
-      <div class="product__list">
-        {{> product-card}}
-        {{/if}}
-      </div>
+      {{#each list}}
+      {{> product-card}}
+      {{/each}}
+      {{/if}}
       {{/with}}
   </section>
 </main>
