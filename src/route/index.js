@@ -5,202 +5,86 @@ const router = express.Router()
 
 // ================================================================
 
-
-class User {
-  static #list = [];
-
-  constructor(email, login, password) {
-    this.email = email;
-    this.login = login;
-    this.password = password;
-    this.id = new Date().getTime()
-  }
-
-  static add = (user) => {
-    this.#list.push(user)
-  }
-
-  static getList = () => this.#list
-
-  static getById = (id) => this.#list.find((user) => user.id === id)
-
-  static deleteById = (id) => {
-    const index = this.#list.findIndex((user) => user.id === id,)
-
-    if (index !== -1) {
-      this.#list.splice(index, 1)
-      return true
-    } else {
-      return false
-    }
-  }
-
-  static updateById = (id, data) => {
-    const user = this.getById(id);
-
-    if (user) {
-      this.update(user, data)
-      return true
-    } else {
-      return false
-    }
-  }
-
-  static update = (user, { email }) => {
-    if (email) {
-      user.email = email
-    }
-  }
-}
-
 class Product {
   static #list = []
 
-  constructor(prodName, price, description) {
-    this.prodName = prodName
-    this.price = price
+  static #count = 0
+
+  constructor(
+    img,
+    title,
+    description,
+    category,
+    price,
+    amount = 0,
+  ) {
+    this.id = ++Product.#count // Генеруємо унікальний id для товару
+    this.img = img
+    this.title = title
     this.description = description
-    this.id = Math.floor(Math.random() * 1000000)
-    this.createDate = () => {
-      this.date = new Date().toISOString()
-    }
+    this.category = category
+    this.price = price
+    this.amount = amount
   }
 
-  static getList = () => this.#list
+  static add = (...data) => {
+    const newProduct = new Product(...data)
 
-  checkId = (id) => this.id === id
-
-  static add = (product) => {
-    this.#list.push(product)
+    this.#list.push(newProduct)
   }
 
-  static getById = (id) =>
-    this.#list.find((product) => product.id === id)
+  static getList = () => {
+    return this.#list
+  }
 
-  // static updateById = (id, data) => {
-  //   const product = this.getById(id)
-  // }
+  static getById = (id) => {
+    // console.log('Searching for product with id:', id)
+    return this.#list.find((product) => product.id === id)
+  }
 
-  static deleteById = (id) => {
-    const index = this.#list.findIndex(
-      (product) => product.id === id,
+  static getRandomList = (id) => {
+    // Фільтруємо товари, щоб вилучити той, з яким порівнюємо id
+    const filteredList = this.#list.filter(
+      (product) => product.id !== id,
     )
 
-    if (index !== -1) {
-      this.#list.splice(index, 1)
-      return true
-    } else {
-      return false
-    }
-  }
+    // Відсортовуємо за допомогою Math.random() та перемашаємо масив
+    const shuffledList = filteredList.sort(
+      () => Math.random() - 0.5,
+    )
 
-  static updateById = (id, data) => {
-    const product = this.getById(id)
-    const { prodName } = data;
-
-    if (product) {
-      if (prodName) {
-        product.prodName = prodName
-      }
-
-      return true
-    } else {
-      return false
-    }
-  }
-
-  static update = (prodName, { product }) => {
-    if (prodName) {
-      product.prodName = prodName
-    }
+    // Повертаємо перші 3 елементи з перемішаного масиву
+    return shuffledList.slice(0, 3)
   }
 }
 
+module.exports = Product
 // ================================================================
 
 // router.get Створює нам один ентпоїнт
+
+// ================================================================
 
 // ↙️ тут вводимо шлях (PATH) до сторінки
 router.get('/', function (req, res) {
   // res.render генерує нам HTML сторінку
 
   const list = User.getList()
-  res.render('index', {
-    style: 'index',
+  res.render('purchase-index', {
+    style: 'purchase-index',
 
     data: {
-      users: {
-        list,
-        isEmpty: list.length === 0
-      }
-    }
+      img: 'https://picsum.photos/200/300',
+      title: `Комп'ютер Artline Gaming (X43v31), AMD Ryzen 5 3600/`,
+      description: `AMD Ryzen 5 3600 (3.6 - 4.2 ГГц) / RAM 15 ГБ / HDD 1 ТБ + SSD 480 ГБ / nVidia GeForce RTX 3050, 8 ГБ / без ОД / LAN / без ОС`,
+      category: [
+        { id: 1, text: 'Готовий до відправки' },
+        { id: 2, text: 'Топ продажів' },
+      ],
+      price: 27000,
+      list: Product.getList(),
+    },
   })
-})
-
-// ================================================================
-
-router.post('/user-create', function (req, res) {
-
-  const { email, login, password } = req.body
-
-  const user = new User(email, login, password)
-
-  User.add(user)
-
-  console.log(User.getList())
-
-  res.render('success-info', {
-    style: 'success-info',
-    info: 'Користувач створений'
-  })
-})
-
-// ================================================================
-
-router.get('/user-delete', function (req, res) {
-
-  const { id } = req.query
-
-  User.deleteById(Number(id))
-
-  res.render('success-info', {
-    style: 'success-info',
-    info: 'Користувач видалений'
-  })
-})
-
-// ================================================================
-
-router.post('/user-update', function (req, res) {
-
-  const { email, password, id } = req.body
-
-  let result = false
-
-  const user = User.getById(Number(id))
-  if (user.verifyPassword(password)) {
-    User.update(user, { email })
-    result = true
-  }
-
-  res.render('alert', {
-    style: 'alert',
-    info: result ? 'Email пошта оновлена' : 'Виникла помилка',
-    link: 'user-update'
-  })
-})
-
-// ================================================================
-
-router.get('/product-create', function (req, res) {
-  // res.render генерує нам HTML сторінку
-  const list = Product.getList()
-  // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('product-create', {
-    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'product-create',
-  })
-  // ↑↑ сюди вводимо JSON дані
 })
 
 // ================================================================
@@ -329,6 +213,17 @@ router.get('/product-delete', function (req, res) {
     style: 'alert',
     info: 'Товар видалений',
     link: '/product-create',
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+router.get('/product-create', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  const list = Product.getList()
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('product-create', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'product-create',
   })
   // ↑↑ сюди вводимо JSON дані
 })
