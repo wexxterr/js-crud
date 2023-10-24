@@ -1,9 +1,5 @@
 @use '../../lib/service.scss' as s;
 
-
-@use '../../component/heading/style.scss';
-@use '../../component/purchase-product/style.scss';
-
 main {
     display: flex;
     flex-direction: column;

@@ -2,6 +2,7 @@
 const express = require('express')
 // Cтворюємо роутер - місце, куди ми підключаємо ендпоїнти
 const router = express.Router()
+const User = require('./user.js');
 
 // ================================================================
 
@@ -57,8 +58,6 @@ class Product {
     return shuffledList.slice(0, 3)
   }
 }
-
-module.exports = Product
 // ================================================================
 
 // router.get Створює нам один ентпоїнт
