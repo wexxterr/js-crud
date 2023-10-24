@@ -2,7 +2,7 @@
 const express = require('express')
 // Cтворюємо роутер - місце, куди ми підключаємо ендпоїнти
 const router = express.Router()
-const User = require('./user.js');
+// const User = require('./user.js');
 
 // ================================================================
 
