@@ -2,7 +2,6 @@
 const express = require('express')
 // Cтворюємо роутер - місце, куди ми підключаємо ендпоїнти
 const router = express.Router()
-// const User = require('./user.js');
 
 // ================================================================
 
@@ -134,31 +133,6 @@ Product.add(
 
 // router.get Створює нам один ентпоїнт
 
-// // ↙️ тут вводимо шлях (PATH) до сторінки
-router.get('/', function (req, res) {
-  // res.render генерує нам HTML сторінку
-
-  const list = User.getList()
-// ↙️ тут вводимо шлях (PATH) до сторінки
-router.get('/', function (req, res) {
-  // res.render генерує нам HTML сторінку
-  res.render('purchase-index', {
-    style: 'purchase-index',
-
-    data: {=
-      img: 'https://picsum.photos/200/300',
-      title: `Комп'ютер Artline Gaming (X43v31), AMD Ryzen 5 3600/`,
-      description: `AMD Ryzen 5 3600 (3.6 - 4.2 ГГц) / RAM 15 ГБ / HDD 1 ТБ + SSD 480 ГБ / nVidia GeForce RTX 3050, 8 ГБ / без ОД / LAN / без ОС`,
-      category: [
-        { id: 1, text: 'Готовий до відправки' },
-        { id: 2, text: 'Топ продажів' },
-      ],
-      price: 27000,
-      list: Product.getList(),
-    },
-  })
-})
-
 // ================================================================
 
 router.get('/purchase-index', function (req, res) {
@@ -168,23 +142,11 @@ router.get('/purchase-index', function (req, res) {
   res.render('purchase-index', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
     style: 'purchase-index',
-    component: ['heading', 'purchase-product', 'button'],
-
-    title: 'Товари',
-    description: `Комп'ютери та ноутбуки/Комп'ютери, неттопи, моноблоки`,
-
+   
     data: {
-      title: 'Товари',
-      subtitle:
-        "Комп'ютери та ноутбуки/Комп'ютери, неттопи, моноблоки",
-
-      products: Product.getList(),
-      list: Product.getRandomList(id),
-      product: Product.getById(id),
+      products: Product.getList()
     },
   })
-
-  console.log(Product.getRandomList(id))
   // ↑↑ сюди вводимо JSON дані
 })
 
