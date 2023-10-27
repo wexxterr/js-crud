@@ -5,6 +5,14 @@ main {
   padding: 40px;
   align-items: center;
   width: 1000px;
+  width: 1000px;
+  align-items: center;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 }
 
 .product__list {
@@ -23,7 +31,8 @@ main {
 .heading__title {
   font-size: 32px;
   color: rgb(50, 81, 255);
+.heading__title {
+  font-size: 36px;
+  color: #3927ff;
   font-weight: 500;
 }
-
-/*# sourceMappingURL=style.css.map */

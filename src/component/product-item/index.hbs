@@ -1,0 +1,31 @@
+{{#with data}}
+<div class="product__card">
+  <img src="{{img}}" alt="Товар 1" class="product-card__image">
+  <h2 class="product-card__title">{{title}}</h2>
+  <p class="product-card__subtitle">{{description}}</p>
+
+  {{#each category}}
+  <span class="product-card__category product-card__category--{{id}}">{{text}}</span>
+  {{/each}}
+  <a href="/purchase-product?id={{id}}" class="product-card__button">Купити зараз: {{price}} грн</a>
+</div>
+{{/with}}
+{{!-- <a href='/purchase-info?id={id}}'>
+  <div class='purchase-item'>
+    <div class='purchase-item__block'>
+      <span class='title'>ID: {{id}}</span>
+    </div>
+    <div class='purchase-item__block'>
+      <span class='title'>Товари</span>
+      <span class='text'>{product}}</span>
+    </div>
+    <div class='purchase-item__block'>
+      <span class='title'>Сума замовлення</span>
+      <span class='text'>{totalPrice}} грн</span>
+    </div>
+    <div class='purchase-item__block'>
+      <span class='title'>Нараховані бонуси</span>
+      <span class='text'>{bonus}} грн</span>
+    </div>
+  </div>
+</a> --}}

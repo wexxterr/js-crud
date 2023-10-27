@@ -58,6 +58,42 @@ class Product {
     return shuffledList.slice(0, 3)
   }
 }
+
+Product.add(
+  '../../img/image-616.jpg',
+  `Комп'ютер Artline Gaming (X43v31), AMD Ryzen 5 3600/`,
+  `AMD Ryzen 5 3600 (3.6 - 4.2 ГГц) / RAM 15 ГБ / HDD 1 ТБ + SSD 480 ГБ / nVidia GeForce RTX 3050, 8 ГБ / без ОД / LAN / без ОС`,
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  10,
+)
+
+Product.add(
+  '../../img/image-617.jpg',
+  `Комп'ютер COBRA Advanced (I11F.8.H1S2.15T.13356) Intel`,
+  `Intel Core i3-10100F (3.6 - 4.3 ГГц) / RAM 8 ГБ / HDD 1 ТБ + SSD 240 ГБ / GeForce GTX 1050 Ti, 4 ГБ / без ОД / LAN / Linux`,
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  17000,
+  7,
+)
+
+Product.add(
+  '../../img/image-618.jpg',
+  `Комп'ютер ARTLINE Gaming by ASUS TUF v119 (TUFv119)`,
+  `Intel Core i9-13900KF (3.0 - 5.8 ГГц) / RAM 64 ГБ / SSD 2 ТБ (2 x 1 ТБ) / nVidia GeForce RTX 4070 Ti, 12 ГБ / без ОД / LAN / Wi-Fi / Bluetooth / без ОС`,
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  113109,
+  50,
+)
 // ================================================================
 
 Product.add(
@@ -103,10 +139,13 @@ router.get('/', function (req, res) {
   // res.render генерує нам HTML сторінку
 
   const list = User.getList()
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.get('/', function (req, res) {
+  // res.render генерує нам HTML сторінку
   res.render('purchase-index', {
     style: 'purchase-index',
 
-    data: {
+    data: {=
       img: 'https://picsum.photos/200/300',
       title: `Комп'ютер Artline Gaming (X43v31), AMD Ryzen 5 3600/`,
       description: `AMD Ryzen 5 3600 (3.6 - 4.2 ГГц) / RAM 15 ГБ / HDD 1 ТБ + SSD 480 ГБ / nVidia GeForce RTX 3050, 8 ГБ / без ОД / LAN / без ОС`,
@@ -140,8 +179,32 @@ router.get('/purchase-index', function (req, res) {
         "Комп'ютери та ноутбуки/Комп'ютери, неттопи, моноблоки",
 
       products: Product.getList(),
+      list: Product.getRandomList(id),
+      product: Product.getById(id),
     },
   })
+
+  console.log(Product.getRandomList(id))
+  // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+router.get('/purchase-product', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  const id = Number(req.query.id)
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('purchase-product', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'purchase-product',
+
+    data: {
+      list: Product.getRandomList(id),
+      product: Product.getById(id),
+    },
+  })
+
   // ↑↑ сюди вводимо JSON дані
 })
 
