@@ -58,31 +58,32 @@ class Product {
     return shuffledList.slice(0, 3)
   }
 }
+
+Product.add(
+  '../img/image-616.jpg',
+  `Комп'ютер Artline Gaming (X43v31), AMD Ryzen 5 3600/`,
+  `AMD Ryzen 5 3600 (3.6 - 4.2 ГГц) / RAM 15 ГБ / HDD 1 ТБ + SSD 480 ГБ / nVidia GeForce RTX 3050, 8 ГБ / без ОД / LAN / без ОС`,
+  [
+    { id: 1, text: 'Готовий до відправки' },
+    { id: 2, text: 'Топ продажів' },
+  ],
+  27000,
+  10,
+)
 // ================================================================
 
-// router.get Створює нам один ентпоїнт
+// ↙️ тут вводимо шлях (PATH) до сторінки
+router.get('/', function (req, res) {
+  // res.render генерує нам HTML сторінку
 
-// // ↙️ тут вводимо шлях (PATH) до сторінки
-// router.get('/', function (req, res) {
-//   // res.render генерує нам HTML сторінку
+  res.render('purchase-index', {
+    style: 'purchase-index',
 
-//   const list = User.getList()
-//   res.render('purchase-index', {
-//     style: 'purchase-index',
-
-//     data: {
-//       img: 'https://picsum.photos/200/300',
-//       title: `Комп'ютер Artline Gaming (X43v31), AMD Ryzen 5 3600/`,
-//       description: `AMD Ryzen 5 3600 (3.6 - 4.2 ГГц) / RAM 15 ГБ / HDD 1 ТБ + SSD 480 ГБ / nVidia GeForce RTX 3050, 8 ГБ / без ОД / LAN / без ОС`,
-//       category: [
-//         { id: 1, text: 'Готовий до відправки' },
-//         { id: 2, text: 'Топ продажів' },
-//       ],
-//       price: 27000,
-//       list: Product.getList(),
-//     },
-//   })
-// })
+    data: {
+      list: Product.getList(),
+    },
+  })
+})
 
 // ================================================================
 
@@ -106,6 +107,27 @@ router.get('/purchase-index', function (req, res) {
       products: Product.getList(),
     },
   })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+router.get('/purchase-product', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  const id = Number(req.query.id)
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('purchase-product', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'purchase-product',
+
+    data: {
+      list: Product.getRandomList(id),
+      product: Product.getById(id),
+    },
+  })
+
+  console.log(Product.getRandomList(id))
   // ↑↑ сюди вводимо JSON дані
 })
 
