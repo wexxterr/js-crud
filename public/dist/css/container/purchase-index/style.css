@@ -3,6 +3,8 @@ main {
   flex-direction: column;
   gap: 40px;
   padding: 40px;
+  align-items: center;
+  width: 1000px;
 }
 
 .product__list {
@@ -10,6 +12,18 @@ main {
   width: 100%;
   grid-template-columns: 1fr 1fr;
   gap: 20px;
+}
+
+.heading {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.heading__title {
+  font-size: 32px;
+  color: rgb(50, 81, 255);
+  font-weight: 500;
 }
 
 /*# sourceMappingURL=style.css.map */

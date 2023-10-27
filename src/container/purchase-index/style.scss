@@ -5,6 +5,8 @@ main {
     flex-direction: column;
     gap: s.space(10);
     padding: s.space(10);
+    align-items: center;
+    width: 1000px;
 }
 
 .product__list {
@@ -13,4 +15,16 @@ main {
 
    grid-template-columns: 1fr 1fr;
    gap: s.space(5);
+}
+
+.heading {
+display: flex;
+flex-direction: column;
+gap: 20px;
+}
+
+.heading__title {
+    font-size: 32px;
+    color: rgb(50, 81, 255);
+    font-weight: 500;
 }
