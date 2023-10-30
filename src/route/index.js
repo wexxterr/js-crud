@@ -177,15 +177,85 @@ router.post('/purchase-create', function (req, res) {
   const id = Number(req.query.id)
   const amount = Number(req.body.amount)
 
-  console.log(id, amount)
+  if (amount < 1) {
+    return res.render('alert', {
+      style: 'alert',
+      component: ['button', 'heading'],
+
+      data: {
+        link: `/purchase-product?id=${id}`,
+        title: 'Помилка',
+        info: 'Некоректна кількість товару',
+      },
+    })
+  }
+
+  const product = Product.getById(id)
+
+  if (product.amount < 1) {
+    return res.render('alert', {
+      style: 'alert',
+      component: ['button', 'heading'],
+
+      data: {
+        link: `/purchase-product?id=${id}`,
+        title: 'Помилка',
+        info: 'Такої кількості товару немає в намявнсисті',
+      },
+    })
+  }
+
+  console.log(product, amount)
+
+  const productPrice = product.price * amount
+  const totalPrice = productPrice + Purchase.DELIVERY_PRICE
+  const bonus = Purchase.calcBonusAmount(totalPrice)
 
   // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('purchase-product', {
-    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
-    style: 'purchase-product',
+  res.render('purchase-create', {
+    style: 'purchase-create',
+    component: ['divider', 'field', 'button', 'heading'],
+
     data: {
-      list: Product.getRandomList(id),
-      product: Product.getById(id),
+      title: 'Ваше замовлення',
+      subtitle: 'Оформлення замовлення',
+
+      id: product.id,
+
+      cart: [
+        {
+          text: `${product.title} (${amount} шт)`,
+          price: product.price,
+        },
+        {
+          text: 'Вартість доставки',
+          price: Purchase.DELIVERY_PRICE,
+        },
+      ],
+      totalPrice,
+      productPrice,
+      amount,
+      bonus,
+      deliveryPrice: Purchase.DELIVERY_PRICE,
+    },
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+router.post('/purchase-submit', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  console.log(req.body)
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('alert', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'alert',
+    data: {
+      message: 'Успіх',
+      info: 'Замовлення створено',
+      link: '/purchase-list',
     }
   })
   // ↑↑ сюди вводимо JSON дані

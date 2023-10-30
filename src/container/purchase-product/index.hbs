@@ -1,17 +1,23 @@
 <main class='main'>
+  {{> heading title="Обрати кількість"}}
   {{#with data.product}}
   <form method="POST" action="/purchase-create?id={{id}}">
     <div class="product-info">
 
       <img src="{{img}}" alt="{{title}}" class="product-info__image">
-      <h2 class="product-info__title">{{title}}</h2>
-      <p class="product-info__subtitle">{{description}}</p>
+      <div class="product-description">
+        <h2 class="product-info__title">{{title}}</h2>
 
-      {{> divider}}
+        {{> divider}}
 
-      {{> field label="Кількість" type="number" name="amount" value="1"}}
+        <p class="product-info__subtitle">{{description}}</p>
 
-      <button class="product-card__button">Купити зараз: {{price}}₴</button>
+        {{> divider}}
+
+        {{> field label="Кількість товару" type="number" name="amount" value="1"}}
+
+        <button class="product-card__button">Купити зараз: {{price}}₴</button>
+      </div>
     </div>
   </form>
   {{/with}}
