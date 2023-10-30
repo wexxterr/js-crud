@@ -142,7 +142,7 @@ router.get('/purchase-index', function (req, res) {
   res.render('purchase-index', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
     style: 'purchase-index',
-   
+
     data: {
       products: Product.getList()
     },
@@ -167,6 +167,27 @@ router.get('/purchase-product', function (req, res) {
     },
   })
 
+  // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+
+router.post('/purchase-create', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  const id = Number(req.query.id)
+  const amount = Number(req.body.amount)
+
+  console.log(id, amount)
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('purchase-product', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'purchase-product',
+    data: {
+      list: Product.getRandomList(id),
+      product: Product.getById(id),
+    }
+  })
   // ↑↑ сюди вводимо JSON дані
 })
 
