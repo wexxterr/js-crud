@@ -58,6 +58,115 @@ class Product {
   }
 }
 
+class Purchase {
+  static DELIVERY_PRICE = 150
+  static #BONUS_FACTOR = 0.1
+
+  static #count = 0
+  static #list = []
+
+  static #bonusAccount = new Map()
+
+  static getBonusBalance = (email) => {
+    return Purchase.#bonusAccount.get(email) || 0
+  }
+
+  static updateBonusBalance = (email, price, bonusUse = 0) => {
+    const amount = price * Purchase.#BONUS_FACTOR
+
+    const currentBalance = Purchase.getBonusBalance(email)
+
+    const updatedBalance = currentBalance + amount - bonusUse
+
+    Purchase.#bonusAccount.set(email, updatedBalance)
+
+    console.log(email, updatedBalance)
+
+    return amount
+  }
+
+  constructor(data, product) {
+    this.id = ++Purchase.#count
+
+    this.firstname = data.firstname
+    this.lastname = data.lastname
+
+    this.phone = data.phone
+    this.email = data.email
+
+    this.comment = data.comment || null
+
+    this.bonus = data.bonus || 0
+
+    this.promocode = data.promocode || null
+
+    this.totalPrice = data.totalPrice
+    this.productPrice = data.productPrice
+    this.deliveryPrice = data.deliveryPrice
+
+    this.amount = data.amount
+
+    this.product = data.product
+  }
+
+  static add = (...arg) => {
+    const newPurchase = new Purchase(...arg)
+
+    this.#list.push(newPurchase)
+
+    return newPurchase
+  }
+
+  static getList = () => {
+    return Purchase.#list.reverse()
+  }
+
+  static getById = (id) => {
+    return Purchase.#list.find((item) => item.id === id)
+  }
+
+  static updateById = (id, data) => {
+    const purchase = Purchase.getById(id)
+    if (purchase) {
+      if (data.firstname) purchase.firstname = data.firstname
+      if (data.lastname) purchase.lastname = data.lastname
+      if (data.phone) purchase.phone = data.phone
+      if (data.email) purchase.email = data.email
+
+      return true
+    } else {
+      return false
+    }
+  }
+}
+
+class Promocode {
+  static #list = []
+
+  constructor(name, factor) {
+    this.name = name
+    this.factor = factor
+  }
+
+  static add = (name, factor) => {
+    const newPromoCode = new Promocode(name, factor)
+    Promocode.#list.push(newPromoCode)
+    return newPromoCode
+  }
+
+  static getByName = (name) => {
+    return this.#list.find((promo) => promo.name === name)
+  }
+
+  static calc = (promo, price) => {
+    return price * promo.factor
+  }
+}
+
+Promocode.add('SUMMER2023', 0.9)
+Promocode.add('DISCOUNT50', 0.5)
+Promocode.add('SALE25', 0.75)
+
 Product.add(
   '../../img/image-616.jpg',
   `Комп'ютер Artline Gaming (X43v31), AMD Ryzen 5 3600/`,
@@ -200,7 +309,7 @@ router.post('/purchase-create', function (req, res) {
       data: {
         link: `/purchase-product?id=${id}`,
         title: 'Помилка',
-        info: 'Такої кількості товару немає в намявнсисті',
+        info: 'Такої кількості товару немає в наявності',
       },
     })
   }
@@ -246,10 +355,87 @@ router.post('/purchase-create', function (req, res) {
 
 router.post('/purchase-submit', function (req, res) {
   // res.render генерує нам HTML сторінку
-  console.log(req.body)
+  const id = Number(req.query.id)
 
-  // ↙️ cюди вводимо назву файлу з сontainer
-  res.render('alert', {
+  let {
+    totalPrice, productPrice, deliveryPrice, amount, firstname, lastname, phone, email, promocode,
+  } = req.body
+
+  const product = Product.getById(id)
+
+  if (!product) {
+    return res.render('alert', {
+      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+      style: 'alert',
+      data: {
+        message: 'Помилка',
+        info: 'Товар не знайдено',
+        link: '/purchase-list',
+      }
+    })
+  }
+
+  if (product.amount < amount) {
+    return res.render('alert', {
+      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+      style: 'alert',
+      data: {
+        message: 'Помилка',
+        info: 'Товару нема в потрібній кількості',
+        link: '/purchase-list',
+      }
+    })
+  }
+
+  totalPrice = Number(totalPrice)
+  productPrice = Number(productPrice)
+  deliveryPrice = Number(deliveryPrice)
+  amount = Number(amount)
+
+  if (
+    isNan(totalPrice) || isNaN(productPrice) || isNan(deliveryPrice) || isNan(amount)
+  ) {
+    return res.render('alert', {
+      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+      style: 'alert',
+      data: {
+        message: 'Помилка',
+        info: 'Некоректні дані',
+        link: '/purchase-list',
+      }
+    })
+  }
+
+  if (!firstname || !lastname || !phone || !email) {
+    return res.render('alert', {
+      // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+      style: 'alert',
+      data: {
+        message: `Заповніть обов'язкові поля`,
+        info: 'Некоректні дані',
+        link: '/purchase-list',
+      }
+    })
+  }
+
+  if (promocode) {
+    promocode = Promocode.getByName(promocode)
+
+    if (promocode) {
+      totalPrice = Promocode.calc(promocode, totalPrice)
+    }
+  }
+
+  const purchase = Purchase.add(
+    {
+      totalPrice, productPrice, deliveryPrice, amount, firstname, lastname, phone, email, promocode,
+    },
+    product
+  )
+
+  console.log(purchase)
+
+  return res.render('alert', {
     // вказуємо назву папки контейнера, в якій знаходяться наші стилі
     style: 'alert',
     data: {
@@ -258,8 +444,8 @@ router.post('/purchase-submit', function (req, res) {
       link: '/purchase-list',
     }
   })
-  // ↑↑ сюди вводимо JSON дані
-})
+}
+)
 
 // ================================================================
 
