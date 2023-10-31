@@ -118,8 +118,19 @@ class Purchase {
   }
 
   static getList = () => {
-    return Purchase.#list.reverse()
+    return Purchase.#list.reverse().map(({ }) => { })
   }
+
+  static getPurchaseList = () => {
+    return Purchase.#list.reverse().map(purchase => {
+      const { title, totalPrice } = purchase.product;
+      return {
+        title,
+        totalPrice
+      };
+    });
+  }
+
 
   static getById = (id) => {
     return Purchase.#list.find((item) => item.id === id)
@@ -318,7 +329,7 @@ router.post('/purchase-create', function (req, res) {
 
   const productPrice = product.price * amount
   const totalPrice = productPrice + Purchase.DELIVERY_PRICE
-  const bonus = Purchase.calcBonusAmount(totalPrice)
+  // const bonus = Purchase.calcBonusAmount(totalPrice)
 
   // ↙️ cюди вводимо назву файлу з сontainer
   res.render('purchase-create', {
@@ -344,7 +355,7 @@ router.post('/purchase-create', function (req, res) {
       totalPrice,
       productPrice,
       amount,
-      bonus,
+      // bonus,
       deliveryPrice: Purchase.DELIVERY_PRICE,
     },
   })
@@ -358,7 +369,7 @@ router.post('/purchase-submit', function (req, res) {
   const id = Number(req.query.id)
 
   let {
-    totalPrice, productPrice, deliveryPrice, amount, firstname, lastname, phone, email, promocode,
+    totalPrice, productPrice, deliveryPrice, amount, comment, firstname, lastname, phone, email, promocode,
   } = req.body
 
   const product = Product.getById(id)
@@ -391,9 +402,11 @@ router.post('/purchase-submit', function (req, res) {
   productPrice = Number(productPrice)
   deliveryPrice = Number(deliveryPrice)
   amount = Number(amount)
+  // bonus = Number(bonus)
 
   if (
-    isNan(totalPrice) || isNaN(productPrice) || isNan(deliveryPrice) || isNan(amount)
+    isNaN(totalPrice) || isNaN(productPrice) || isNaN(deliveryPrice) || isNaN(amount)
+    // || isNaN(bonus)
   ) {
     return res.render('alert', {
       // вказуємо назву папки контейнера, в якій знаходяться наші стилі
@@ -418,6 +431,22 @@ router.post('/purchase-submit', function (req, res) {
     })
   }
 
+  // if (bonus || bonus > 0) {
+  //   const bonusAmount = Purchase.getBonusBalance(email)
+
+  //   console.log(bonusAmount)
+
+  //   if (bonus > bonusAmount) {
+  //     bonus = bonusAmount
+  //   }
+
+  //   Purchase.updateBonusBalance(email, totalPrice, bonus)
+
+  //   totalPrice -= bonus
+  // } else {
+  //   Purchase.updateBonusBalance(email, totalPrice, 0)
+  // }
+
   if (promocode) {
     promocode = Promocode.getByName(promocode)
 
@@ -426,9 +455,11 @@ router.post('/purchase-submit', function (req, res) {
     }
   }
 
+  if (totalPrice < 0) totalPrice = 0
+
   const purchase = Purchase.add(
     {
-      totalPrice, productPrice, deliveryPrice, amount, firstname, lastname, phone, email, promocode,
+      totalPrice, productPrice, deliveryPrice, amount, comment, firstname, lastname, phone, email, promocode,
     },
     product
   )
@@ -446,6 +477,32 @@ router.post('/purchase-submit', function (req, res) {
   })
 }
 )
+
+// ================================================================
+
+router.get('/purchase-list', function (req, res) {
+  // res.render генерує нам HTML сторінку
+  // console.log(bonus)
+
+  const list = Purchase.getList()
+  console.log('purchase-list:', list)
+
+  // ↙️ cюди вводимо назву файлу з сontainer
+  res.render('purchase-list', {
+    // вказуємо назву папки контейнера, в якій знаходяться наші стилі
+    style: 'purchase-list',
+    component: ['heading', 'purchase-item', 'divider'],
+    title: 'Мої замовлення',
+
+    data: {
+      purchases: {
+        list,
+      },
+      // bonus, // Отримати bonusAmount з параметрів URL
+    },
+  })
+  // ↑↑ сюди вводимо JSON дані
+})
 
 // ================================================================
 

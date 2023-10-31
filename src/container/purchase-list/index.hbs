@@ -1,0 +1,22 @@
+<main class='main'>
+  {{> heading title=title }}
+  {{#with data.purchases}}
+  <div class="list_block">
+    {{#each list}}
+    {{> divider}}
+    <ul class="list__item">
+      <li class="list__id">ID:
+        <span>{{id}}</span>
+      </li>
+      <li class="list__title">Товар:
+        <span>{{title}}</span>
+      </li>
+      <li class="list__sum">Сума замовлення:
+        <span>{{totalPrice}}</span> грн
+      </li>
+    </ul>
+    {{> divider}}
+    {{/each}}
+  </div>
+  {{/with}}
+</main>

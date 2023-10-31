@@ -6,19 +6,34 @@
 @use '../../component/divider/style.scss' as divider;
 @use '../../component/button/style.scss' as button;
 
-*{
-    align-items: center;
-}
-
 main {
     display: flex;
     flex-direction: column;
-    gap: s.space(10);
     padding: s.space(10);
     align-items: center;
     align-content: center;
-    width: 1100px;
+    width: 1000px;
     margin-left: 230px;
+    height: auto;
+    border: 1px solid s.color('light');
+    border-radius: 12px;
+    padding: 24px;
+    gap: 10px;
+    margin-top: 40px;
+    margin-bottom: 40px;
+}
+
+.cart {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.button {
+    background-color: #0050FF;
+    border-radius: 10px;
+    padding: 8px 119px;
+    color: white;
 }
 
 .product-info__divider {
@@ -27,31 +42,13 @@ main {
     background: #CED4DA;
 }
 
-.purchase__list {
-    display: grid;
-    width: 1000px;
-
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-    display: flex;
-    align-items: flex-start;
-    align-content: flex-start;
-    gap: 60px 20px;
-}
-
-.product-cards {
-    display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  
-}
-
 .heading {
     display: flex;
     flex-direction: column;
     gap: 20px;
     align-items: center;
     align-content: center;
+    margin-bottom: 20px;
 }
 
 .heading__title {
