@@ -44,25 +44,25 @@
       <div class="purchase-item">
         <div class="purchase-item__block">
           <span class="title">Вартість товарів:</span>
-          <span class="text">{{productPrice}}</span>
+          <span class="text">{{productPrice}} ₴</span>
         </div>
         <div class="purchase-item__block">
           <span class="title">Сума до сплати:</span>
-          <span class="text">{{totalPrice}}</span>
+          {{!-- <span class="text">{{totalPrice}} ₴</span> --}}
         </div>
       </div>
       <div class="purchase-item">
         <div class="purchase-item__block">
           <span class="title">Вартість доставки:</span>
-          <span class="text">{{deliveryPrice}}</span>
+          <span class="text">{{deliveryPrice}} ₴</span>
         </div>
         <div class="purchase-item__block">
           <span class="title">Нараховані бонуси:</span>
-          <span class="text">{{bonus}}</span>
+          <span class="text">{{bonus}} ₴</span>
         </div>
       </div>
-
-      {{> button text="Змінити дані"}}
+      <a href="/purchase-edit?id={{id}}" class="button">Змінити дані</a>
+      {{/with}}
     </div>
   </section>
 </main>

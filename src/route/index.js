@@ -487,7 +487,7 @@ router.get('/purchase-list', function (req, res) {
 })
 
 // ================================================================
-router.get('purchase-info', function (req, res) {
+router.get('/purchase-info', function (req, res) {
 
   const id = Number(req.query.id)
   const purchase = Purchase.getById(id)
@@ -513,7 +513,42 @@ router.get('purchase-info', function (req, res) {
       product: purchase.product.title,
       productPrice: purchase.productPrice,
       deliveryPrice: purchase.deliveryPrice,
-      totalPrice: purchase.totalPrice,
+      // totalPrice: purchase.totalPrice,
+      bonus: bonus,
+    },
+  })
+})
+
+// ================================================================
+router.post('/purchase-edit', function (req, res) {
+
+  const id = Number(req.query.id)
+  const purchase = Purchase.getById(id)
+  const bonus = Purchase.calcBonusAmount(
+    purchase.totalPrice,
+  )
+
+  console.log('purchase:', purchase, bonus)
+
+  const product = Product.updateById(Number(id), {
+    firstname,
+    lastname,
+    phone,
+    email,
+  })
+
+  res.render('purchase-edit', {
+    style: 'purchase-edit',
+    component: ['button', 'heading', 'field'],
+
+    title: 'Зміна даних',
+
+    data: {
+      id: purchase.id,
+      firstname: purchase.firstname,
+      lastname: purchase.lastname,
+      phone: purchase.phone,
+      email: purchase.email,
       bonus: bonus,
     },
   })
