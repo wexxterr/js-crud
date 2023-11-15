@@ -13,8 +13,8 @@ main {
     align-items: center;
     align-content: center;
     width: auto;
-    margin-left: 300px;
-    margin-right: 300px;
+    margin-left: 250px;
+    margin-right: 250px;
     height: auto;
     border: 1px solid s.color('light');
     border-radius: 12px;
@@ -58,4 +58,26 @@ main {
     font-size: 32px;
     color: #0050FF;
     font-weight: 500;
+}
+
+li {
+    margin-right: 20px;
+    padding: 8px;
+}
+
+.layer {
+    display: flex;
+    flex-direction: row; 
+    gap: 4px;
+
+}
+
+.layers {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.grey {
+color: grey;
 }

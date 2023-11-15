@@ -61,89 +61,71 @@ class Product {
 class Purchase {
   static DELIVERY_PRICE = 150
   static #BONUS_FACTOR = 0.1
-
   static #count = 0
   static #list = []
-
   static #bonusAccount = new Map()
-
   static getBonusBalance = (email) => {
     return Purchase.#bonusAccount.get(email) || 0
   }
-
-  static updateBonusBalance = (email, price, bonusUse = 0) => {
-    const amount = price * Purchase.#BONUS_FACTOR
-
+  static calcBonusAmount = (value) => {
+    return value * Purchase.#BONUS_FACTOR
+  }
+  static updateBonusBalance = (
+    email,
+    price,
+    bonusUse = 0,
+  ) => {
+    const amount = this.calcBonusAmount(price)
     const currentBalance = Purchase.getBonusBalance(email)
-
-    const updatedBalance = currentBalance + amount - bonusUse
-
+    const updatedBalance =
+      currentBalance + amount - bonusUse
     Purchase.#bonusAccount.set(email, updatedBalance)
-
     console.log(email, updatedBalance)
-
     return amount
   }
-
   constructor(data, product) {
     this.id = ++Purchase.#count
-
     this.firstname = data.firstname
     this.lastname = data.lastname
-
     this.phone = data.phone
     this.email = data.email
-
+    this.delivery = data.delivery
     this.comment = data.comment || null
-
     this.bonus = data.bonus || 0
-
     this.promocode = data.promocode || null
-
     this.totalPrice = data.totalPrice
     this.productPrice = data.productPrice
     this.deliveryPrice = data.deliveryPrice
-
     this.amount = data.amount
-
-    this.product = data.product
+    this.product = product
   }
-
   static add = (...arg) => {
     const newPurchase = new Purchase(...arg)
-
     this.#list.push(newPurchase)
-
+    // Оновлення об'єкту product після успішної покупки
+    newPurchase.product.amount -= newPurchase.amount
     return newPurchase
   }
-
   static getList = () => {
-    return Purchase.#list.reverse().map(({ }) => { })
+    return Purchase.#list.reverse().map((purchase) => ({
+      id: purchase.id,
+      product: purchase.product.title,
+      totalPrice: purchase.totalPrice,
+      bonus: Purchase.calcBonusAmount(purchase.totalPrice),
+    }))
   }
-
-  static getPurchaseList = () => {
-    return Purchase.#list.reverse().map(purchase => {
-      const { title, totalPrice } = purchase.product;
-      return {
-        title,
-        totalPrice
-      };
-    });
-  }
-
-
   static getById = (id) => {
-    return Purchase.#list.find((item) => item.id === id)
+    return this.#list.find((item) => item.id === id)
   }
-
   static updateById = (id, data) => {
     const purchase = Purchase.getById(id)
     if (purchase) {
-      if (data.firstname) purchase.firstname = data.firstname
+      if (data.firstname)
+        purchase.firstname = data.firstname
       if (data.lastname) purchase.lastname = data.lastname
       if (data.phone) purchase.phone = data.phone
       if (data.email) purchase.email = data.email
-
+      if (data.delivery) purchase.delivery = data.delivery
       return true
     } else {
       return false
@@ -502,6 +484,39 @@ router.get('/purchase-list', function (req, res) {
     },
   })
   // ↑↑ сюди вводимо JSON дані
+})
+
+// ================================================================
+router.get('purchase-info', function (req, res) {
+
+  const id = Number(req.query.id)
+  const purchase = Purchase.getById(id)
+  const bonus = Purchase.calcBonusAmount(
+    purchase.totalPrice,
+  )
+
+  console.log('purchase:', purchase, bonus)
+
+  res.render('purchase-info', {
+    style: 'purchase-info',
+    component: ['divider', 'button', 'heading'],
+
+    title: 'Інформація про замовлення',
+
+    data: {
+      id: purchase.id,
+      firstname: purchase.firstname,
+      lastname: purchase.lastname,
+      phone: purchase.phone,
+      email: purchase.email,
+      delivery: purchase.delivery,
+      product: purchase.product.title,
+      productPrice: purchase.productPrice,
+      deliveryPrice: purchase.deliveryPrice,
+      totalPrice: purchase.totalPrice,
+      bonus: bonus,
+    },
+  })
 })
 
 // ================================================================
