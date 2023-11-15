@@ -1,0 +1,30 @@
+<main class='main'>
+  {{> heading title=title }}
+  {{#with data.purchases}}
+  <div class="list_block">
+    {{#each list}}
+    {{> divider}}
+    <ul class="list__item">
+      <li class="list__id layer grey">ID:
+        <span>{{id}}</span>
+      </li>
+      <li class="list__sum layers">
+        <span class="grey">Товар:</span>
+        <span class="">{{product}}</span>
+      </li>
+      <li class="list__sum layers">
+        <span class="grey">Сума замовлення:</span>
+        <span>{{totalPrice}} грн</span>
+      </li>
+      <li class="list__sum layers">
+        {{!-- <span class="grey">Бонуси:</span>
+        <span>{{bonus}} грн</span> --}}
+        <span class="grey">Редагувати інформацію:</span>
+        <a href="/purchase-info?id={{id}}">Редагувати</a>
+      </li>
+    </ul>
+    {{> divider}}
+    {{/each}}
+  </div>
+  {{/with}}
+</main>
