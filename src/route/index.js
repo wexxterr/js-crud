@@ -29,47 +29,46 @@ class Track {
   }
 }
 
-Track.create(
-  '美少女無罪♡パイレーツ',
-  '宝鐘マリン',
-  'https://i.scdn.co/image/ab67616d0000b273ad7a27fdc6b15c24bb12a1d1',
-)
-
-Track.create(
-  '勇者',
-  'YOASOBI',
-  'https://i.scdn.co/image/ab67616d0000b273a9f9b6f07b43009f5b0216dc',
-)
-
-Track.create(
-  'CRAZY NOISY BIZZARE TOWN',
-  'THE DU',
-  'https://i.scdn.co/image/ab67616d0000b2739d956d70e6b09cd3452f4a59',
-)
-
-Track.create(
-  'MUKANJYO',
-  'Survive Said The Prophet',
-  'https://i.scdn.co/image/ab67616d0000b27366692ec3a0f5437132315850',
-)
-
-Track.create(
-  'Ambiguous',
-  'GARNiDELiA',
-  'https://i.scdn.co/image/ab67616d0000b2738b39373afe41803b83e4fa44',
-)
-
-Track.create(
-  'サクリファイス',
-  '9mm Parabellum Bullet',
-  'https://i.scdn.co/image/ab67616d0000b273035b5e090310fa10b00709d5',
-)
-
-Track.create(
-  'インフェルノ',
-  '9mm Parabellum Bullet',
-  'https://i.scdn.co/image/ab67616d0000b2732d5f2b2b0a1314b0120292c3',
-)
+Track.create('Інь Янь', 'MONATIK і ROXOLANA', '/img/image_627.jpg',)
+Track.create('Baila Conmigo (Remix)', 'Selena Gomez і Rauw Alejandro', '/img/image_630.jpg',)
+Track.create('Shameless ', 'Camila Cabello ', '/img/image_629.jpg',)
+Track.create('DÁKITI', 'BAD BUNNY і JHAY', '/img/image_628.jpg',)
+Track.create('11 PM', 'Maluma', '/img/image_631.jpg')
+Track.create('Порічка', 'YAKTAK x KOLA', '/img/image_632.jpg',)
+Track.create('Там У Тополі', 'Артем Пивоваров & NK', '/img/image_633.jpg',)
+Track.create('Додому', 'Wellboy', '/img/image_634.jpg')
+Track.create('Люди', 'MamaRika & KOLA', '/img/image_635.jpg',)
+Track.create('BRONIA', 'Jerry Heil & Ochman', '/img/image_636.jpg',)
+Track.create('Інь Янь', 'MONATIK і ROXOLANA', '/img/image_627.jpg',)
+Track.create('Baila Conmigo (Remix)', 'Selena Gomez і Rauw Alejandro', '/img/image_630.jpg',)
+Track.create('Shameless ', 'Camila Cabello ', '/img/image_629.jpg',)
+Track.create('DÁKITI', 'BAD BUNNY і JHAY', '/img/image_628.jpg',)
+Track.create('11 PM', 'Maluma', '/img/image_631.jpg')
+Track.create('Порічка', 'YAKTAK x KOLA', '/img/image_632.jpg',)
+Track.create('Там У Тополі', 'Артем Пивоваров & NK', '/img/image_633.jpg',)
+Track.create('Додому', 'Wellboy', '/img/image_634.jpg')
+Track.create('Люди', 'MamaRika & KOLA', '/img/image_635.jpg',)
+Track.create('BRONIA', 'Jerry Heil & Ochman', '/img/image_636.jpg',)
+Track.create('Інь Янь', 'MONATIK і ROXOLANA', '/img/image_627.jpg',)
+Track.create('Baila Conmigo (Remix)', 'Selena Gomez і Rauw Alejandro', '/img/image_630.jpg',)
+Track.create('Shameless ', 'Camila Cabello ', '/img/image_629.jpg',)
+Track.create('DÁKITI', 'BAD BUNNY і JHAY', '/img/image_628.jpg',)
+Track.create('11 PM', 'Maluma', '/img/image_631.jpg')
+Track.create('Порічка', 'YAKTAK x KOLA', '/img/image_632.jpg',)
+Track.create('Там У Тополі', 'Артем Пивоваров & NK', '/img/image_633.jpg',)
+Track.create('Додому', 'Wellboy', '/img/image_634.jpg')
+Track.create('Люди', 'MamaRika & KOLA', '/img/image_635.jpg',)
+Track.create('BRONIA', 'Jerry Heil & Ochman', '/img/image_636.jpg',)
+Track.create('Інь Янь', 'MONATIK і ROXOLANA', '/img/image_627.jpg',)
+Track.create('Baila Conmigo (Remix)', 'Selena Gomez і Rauw Alejandro', '/img/image_630.jpg',)
+Track.create('Shameless ', 'Camila Cabello ', '/img/image_629.jpg',)
+Track.create('DÁKITI', 'BAD BUNNY і JHAY', '/img/image_628.jpg',)
+Track.create('11 PM', 'Maluma', '/img/image_631.jpg')
+Track.create('Порічка', 'YAKTAK x KOLA', '/img/image_632.jpg',)
+Track.create('Там У Тополі', 'Артем Пивоваров & NK', '/img/image_633.jpg',)
+Track.create('Додому', 'Wellboy', '/img/image_634.jpg')
+Track.create('Люди', 'MamaRika & KOLA', '/img/image_635.jpg',)
+Track.create('BRONIA', 'Jerry Heil & Ochman', '/img/image_636.jpg',)
 
 console.log(Track.getList())
 
@@ -130,17 +129,17 @@ class Playlist {
 }
 
 Playlist.makeMix(
-  Playlist.create('Favorites', '/img/favorites.jpg'),
+  Playlist.create('Пісні, що сподобались', '/img/favorites.jpg'),
 )
 
-Playlist.makeMix(Playlist.create('Mixed', '/img/mixed.jpg'))
+Playlist.makeMix(Playlist.create('Мішанина', '/svg/mixed.svg'))
 
 Playlist.makeMix(
-  Playlist.create('Random', '/img/random.jpg'),
+  Playlist.create('Випадкові', '/img/random.jpg'),
 )
 
 Playlist.makeMix(
-  Playlist.create('My playlist', '/img/my-playlist.jpg'),
+  Playlist.create('Мій плейлист №1', '/img/my-playlist.jpg'),
 )
 
 // ================================================================
@@ -152,8 +151,8 @@ router.get('/', function (req, res) {
   const allPlaylists = Playlist.getList()
   console.log(allPlaylists)
 
-  res.render('index', {
-    style: 'index',
+  res.render('spotify-home', {
+    style: 'spotify-home',
 
     data: {
       list: allPlaylists.map(({ tracks, ...rest }) => ({

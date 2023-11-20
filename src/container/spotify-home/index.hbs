@@ -1,0 +1,34 @@
+{{!
+Це код container файлу для index сторінки,
+в якому міститься код, котрий буде віддаватися по шляху (PATH) - "/"
+}}
+<main class="main">
+  {{#with data}}
+  <div class="main__content">
+    <header class="home__header">
+      <h1 class="title title--center">Моя бібліотека</h1>
+      <div class="header__img">
+        <a href="/spotify-search">
+          <img height="54px" width="54px" src="/svg/spotify-search.svg">
+        </a>
+        <a href="/spotify-choose">
+          <img src="/svg/home_add.svg">
+        </a>
+      </div>
+    </header>
+    <ul class="home__list">
+      {{#each list}}
+      <a href="/spotify-playlist?playlistId={{playlistId}}">
+        <li class="home__item">
+          <img height="345px" width="345px" src="{{image}}" alt="{{name}}">
+          <div class="choose__content">
+            <strong class="title">{{name}}</strong>
+            <p class="choose__text">{{amount}} пісень</p>
+          </div>
+        </li>
+      </a>
+      {{/each}}
+    </ul>
+  </div>
+  {{/with}}
+</main>

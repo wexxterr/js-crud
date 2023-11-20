@@ -21,6 +21,7 @@ a:hover {
   display: flex;
   flex-direction: column;
   gap: 60px;
+  padding: 32px;
 }
 
 .title {
@@ -41,6 +42,10 @@ a:hover {
 .track__list {
   display: grid;
   gap: 32px;
+}
+.track__author {
+  font-size: 16px;
+  color: grey;
 }
 .track__content {
   display: flex;
@@ -90,6 +95,10 @@ a:hover {
 }
 .search__button {
   color: #ddd;
+  transition: opacity 0.6s;
+}
+.search__button:hover {
+  opacity: 0.6;
 }
 
 /*# sourceMappingURL=style.css.map */

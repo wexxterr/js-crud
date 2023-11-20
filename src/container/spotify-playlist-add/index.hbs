@@ -4,7 +4,7 @@
 }}
 <main class="main">
   {{#with data}}
-  <div class="main-content">
+  <div class="main-content main__content-light">
     <h1 class="title title--center">{{name}}</h1>
 
     <ul class="track__list">
@@ -19,7 +19,9 @@
         <form method="POST" action="/spotify-playlist-add">
           <input type="hidden" name="playlistId" value="{{../playlistId}}">
           <input type="hidden" name="trackId" value="{{id}}">
-          <button type="submit">Додати</button>
+          <button class="add__button" type="submit">
+            <img src="/svg/add_button.svg" alt="">
+          </button>
         </form>
       </li>
       {{/each}}
